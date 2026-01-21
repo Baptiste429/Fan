@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sondage Éventails</title>
+    <style>
+        /* --- STYLE MOBILE FIRST --- */
+        :root {
+            --primary: #2c3e50;
+            --accent: #3498db;
+            --gold: #f1c40f;
+            --bg: #f8f9fa;
+            --text: #333;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 0;
+            padding-bottom: 100px;
+        }
+
+        header {
+            background: white;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        h1 { margin: 0 0 15px 0; font-size: 1.3rem; color: var(--primary); }
+        
+        .intro-text { 
+            font-size: 0.95rem; 
+            color: #555; 
+            line-height: 1.5; 
+            margin-bottom: 15px;
+        }
+
+        /* Champ Prénom */
+        .name-input {
+            width: 100%;
+            padding: 12px;
+            font-size: 1rem;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            box-sizing: border-box;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        .name-input:focus { border-color: var(--primary); outline: none; }
+
+        .counter {
+            background: var(--primary);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            display: inline-block;
+            transition: background 0.3s;
+        }
+        .counter.complete { background: #27ae60; }
+
+        .container {
+            padding: 15px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+
+        .card img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .image-header {
+            padding: 10px 15px;
+            font-weight: bold;
+            color: #777;
+            font-size: 0.85rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        /* Grille des boutons de vote */
+        .controls {
+            padding: 15px 15px 5px 15px;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr; /* 3 colonnes égales */
+            gap: 8px;
+        }
+
+        button {
+            padding: 12px 2px;
+            border: 1px solid #eee;
+            background: white;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: #555;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+        }
+
+        /* Bouton commentaire (largeur totale) */
+        .comment-toggle-btn {
+            width: calc(100% - 30px);
+            margin: 5px 15px 15px 15px;
+            background-color: #f8f9fa;
+            border: 1px dashed #ccc;
+            flex-direction: row;
+        }
+
+        /* États des boutons */
+        button.selected { border-color: transparent; color: white; transform: translateY(-2px); box-shadow: 0 3px 8px rgba(0,0,0,0.2); }
+
+        .btn-top4.selected { background-color: var(--gold); color: black; }
+        .btn-like.selected { background-color: #27ae60; }
+        .btn-dislike.selected { background-color: #c0392b; }
+        
+        /* Bouton commentaire actif */
+        .comment-toggle-btn.has-text { 
+            background-color: #e3f2fd; 
+            border-color: #3498db; 
+            color: #2980b9;
+        }
+
+        /* Zone de texte */
+        .feedback-box {
+            display: none;
+            padding: 0 15px 15px 15px;
+        }
+        
+        .feedback-box textarea, .general-ideas textarea {
+            width: 100%;
+            border: 1px solid #3498db;
+            border-radius: 8px;
+            padding: 12px;
+            font-family: inherit;
+            font-size: 0.95rem;
+            box-sizing: border-box;
+            background: #fdfdfd;
+            min-height: 80px;
+            resize: vertical;
+        }
+
+        .general-ideas {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 40px;
+            margin-bottom: 20px;
+        }
+        .general-ideas h3 { margin-top: 0; color: var(--primary); }
+
+        /* Footer fixe */
+        .footer-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: white;
+            padding: 15px;
+            box-shadow: 0 -4px 15px rgba(0,0,0,0.1);
+            text-align: center;
+            display: none;
+            z-index: 200;
+        }
+
+        .submit-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            width: 90%;
+            max-width: 400px;
+            flex-direction: row; /* Surcharge le flex-column des boutons standards */
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Sondage Design Éventails</h1>
+        
+        <p class="intro-text">Voici 15 propositions. Je veux ton avis sincère. Choisis tes 4 préférés (bouton "Top 4").</p>
+        
+        <div style="max-width: 600px; margin: 0 auto;">
+            <input type="text" id="userName" class="name-input" placeholder="Ton Prénom" required>
+            <div class="counter" id="counter">Top 4 sélectionnés : 0 / 4</div>
+        </div>
+    </header>
+
+    <form id="mainForm" action="https://formspree.io/f/mbddpagp" method="POST">
+        
+        <input type="hidden" name="Prenom_Utilisateur" id="hiddenName">
+        
+        <div class="container" id="gallery">
+            </div>
+
+        <div class="container">
+            <div class="general-ideas">
+                <h3>💡 Idée d'éventails</h3>
+                <p>As-tu d'autres idées de motifs, de formes ou de couleurs pour une future collection ?</p>
+                <textarea name="Idée_Generale" placeholder="Ex: J'aimerais voir des motifs floraux..."></textarea>
+            </div>
+        </div>
+
+        <input type="hidden" name="Resultats_Complets" id="finalData">
+
+        <div class="footer-bar" id="footerBar">
+            <button type="submit" class="submit-btn">Envoyer ma sélection</button>
+        </div>
+    </form>
+
+    <script>
+        const totalImages = 15;
+        const maxSelection = 4;
+        const gallery = document.getElementById('gallery');
+        const counterDisplay = document.getElementById('counter');
+        const footerBar = document.getElementById('footerBar');
+        const finalDataInput = document.getElementById('finalData');
+        const mainForm = document.getElementById('mainForm');
+        const nameInput = document.getElementById('userName');
+        const hiddenNameInput = document.getElementById('hiddenName');
+
+        // Stockage
+        let userVotes = {}; // { 1: 'Top 4', 2: 'J'aime' }
+        // On ne stocke plus les commentaires dans une variable globale, on les lit directement au submit
+
+        // Génération de la galerie
+        for (let i = 1; i <= totalImages; i++) {
+            userVotes[i] = "Neutre";
+
+            const card = document.createElement('div');
+            card.className = 'card';
+            card.innerHTML = `
+                <div class="image-header">Modèle #${i}</div>
+                <img src="images/img${i}.png" alt="Eventail ${i}" loading="lazy">
+                
+                <div class="controls" id="ctrl-${i}">
+                    <button type="button" class="btn-top4" onclick="setVote(${i}, 'Top 4', this)">
+                        <span>🏆</span> Top 4
+                    </button>
+                    <button type="button" class="btn-like" onclick="setVote(${i}, 'J\\'aime', this)">
+                        <span>👍</span> J'aime
+                    </button>
+                    <button type="button" class="btn-dislike" onclick="setVote(${i}, 'Bof', this)">
+                        <span>👎</span> Bof
+                    </button>
+                </div>
+
+                <button type="button" class="comment-toggle-btn" id="btn-com-${i}" onclick="toggleComment(${i})">
+                    ✏️ Proposer un changement / Commentaire
+                </button>
+
+                <div class="feedback-box" id="feedback-box-${i}">
+                    <textarea id="text-${i}" oninput="checkCommentInput(${i})" placeholder="Que faudrait-il changer ? (Couleur, motif...)"></textarea>
+                </div>
+            `;
+            gallery.appendChild(card);
+        }
+
+        // Gestion du vote (Top 4, J'aime, Bof)
+        function setVote(id, type, btnElement) {
+            const currentTop4 = countTop4();
+
+            // Règle Top 4
+            if (type === 'Top 4' && currentTop4 >= maxSelection && userVotes[id] !== 'Top 4') {
+                alert("Tu as déjà tes 4 favoris ! Décoche-en un autre pour sélectionner celui-ci.");
+                return;
+            }
+
+            // Bascule (Désélectionner si on clique sur le même)
+            if (userVotes[id] === type) {
+                userVotes[id] = "Neutre";
+                resetButtons(id);
+            } else {
+                userVotes[id] = type;
+                highlightButton(id, btnElement);
+            }
+
+            updateUI();
+        }
+
+        // Afficher/Cacher la zone de commentaire
+        function toggleComment(id) {
+            const box = document.getElementById(`feedback-box-${id}`);
+            const isHidden = window.getComputedStyle(box).display === 'none';
+            
+            box.style.display = isHidden ? 'block' : 'none';
+            
+            if (isHidden) {
+                // Si on ouvre, on met le focus
+                document.getElementById(`text-${id}`).focus();
+            }
+        }
+
+        // Colorier le bouton commentaire s'il y a du texte
+        function checkCommentInput(id) {
+            const text = document.getElementById(`text-${id}`).value.trim();
+            const btn = document.getElementById(`btn-com-${id}`);
+            
+            if (text.length > 0) {
+                btn.classList.add('has-text');
+                btn.innerText = "✏️ Commentaire ajouté";
+            } else {
+                btn.classList.remove('has-text');
+                btn.innerText = "✏️ Proposer un changement / Commentaire";
+            }
+        }
+
+        function resetButtons(id) {
+            const buttons = document.querySelectorAll(`#ctrl-${id} button`);
+            buttons.forEach(b => b.classList.remove('selected'));
+        }
+
+        function highlightButton(id, activeBtn) {
+            resetButtons(id);
+            activeBtn.classList.add('selected');
+        }
+
+        function countTop4() {
+            return Object.values(userVotes).filter(v => v === 'Top 4').length;
+        }
+
+        function updateUI() {
+            const count = countTop4();
+            counterDisplay.innerText = `Top 4 sélectionnés : ${count} / ${maxSelection}`;
+            
+            if (count === maxSelection) {
+                counterDisplay.classList.add('complete');
+                footerBar.style.display = 'block';
+            } else {
+                counterDisplay.classList.remove('complete');
+                footerBar.style.display = 'none';
+            }
+        }
+
+        // Validation finale avant envoi
+        mainForm.onsubmit = function(e) {
+            // 1. Vérification du prénom
+            if (nameInput.value.trim() === "") {
+                e.preventDefault();
+                alert("Merci d'indiquer ton prénom tout en haut !");
+                window.scrollTo(0, 0);
+                nameInput.focus();
+                return;
+            }
+
+            // 2. Vérification du Top 4
+            if (countTop4() !== maxSelection) {
+                e.preventDefault();
+                alert("Il faut sélectionner exactement 4 éventails en 'Top 4'.");
+                return;
+            }
+
+            // 3. Construction des données
+            hiddenNameInput.value = nameInput.value;
+            let finalResult = {};
+
+            for (let i = 1; i <= totalImages; i++) {
+                let vote = userVotes[i];
+                let comment = document.getElementById(`text-${i}`).value.trim();
+                
+                // On enregistre si l'utilisateur a voté OU écrit quelque chose
+                if (vote !== "Neutre" || comment !== "") {
+                    let entry = vote;
+                    if (comment !== "") {
+                        entry += ` | NOTE: ${comment}`;
+                    }
+                    finalResult[`Modèle ${i}`] = entry;
+                }
+            }
+            
+            finalDataInput.value = JSON.stringify(finalResult, null, 2);
+        };
+    </script>
+</body>
+</html>
