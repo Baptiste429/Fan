@@ -3,198 +3,252 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sondage Éventails</title>
+    <title>Sondage Veluume</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
-        /* --- STYLE MOBILE FIRST --- */
         :root {
-            --primary: #2c3e50;
-            --accent: #3498db;
-            --gold: #f1c40f;
-            --bg: #f8f9fa;
-            --text: #333;
+            --bg-sand: #FAF8F5;
+            --card-bg: #FFFFFF;
+            --border: #E8E2D9;
+            --terracotta: #C86D51;
+            --terracotta-dark: #A75239;
+            --olive: #6D775C;
+            --charcoal: #2A2826;
+            --muted: #7A7571;
+        }
+
+        * {
+            box-sizing: border-box;
+            -webkit-font-smoothing: antialiased;
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background-color: var(--bg);
-            color: var(--text);
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--bg-sand);
+            color: var(--charcoal);
             margin: 0;
             padding: 0;
-            padding-bottom: 100px;
+            padding-bottom: 120px;
         }
 
         header {
-            background: white;
-            padding: 20px;
+            background: rgba(250, 248, 245, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            padding: 24px 20px 18px 20px;
             text-align: center;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            border-bottom: 1px solid var(--border);
             position: sticky;
             top: 0;
             z-index: 100;
         }
 
-        h1 { margin: 0 0 15px 0; font-size: 1.3rem; color: var(--primary); }
-        
-        .intro-text { 
-            font-size: 0.95rem; 
-            color: #555; 
-            line-height: 1.5; 
-            margin-bottom: 15px;
+        .logo-container {
+            margin-bottom: 12px;
         }
 
-        /* Champ Prénom */
+        .brand-logo {
+            max-height: 40px;
+            width: auto;
+            display: inline-block;
+        }
+
+        .intro-text { 
+            font-size: 0.9rem; 
+            color: var(--muted); 
+            line-height: 1.5; 
+            max-width: 440px;
+            margin: 0 auto 16px auto;
+        }
+
         .name-input {
             width: 100%;
-            padding: 12px;
-            font-size: 1rem;
-            border: 2px solid #ddd;
-            border-radius: 8px;
-            box-sizing: border-box;
+            padding: 12px 16px;
+            font-size: 0.95rem;
+            font-family: inherit;
+            border: 1px solid var(--border);
+            background: white;
+            border-radius: 6px;
             margin-bottom: 10px;
             text-align: center;
+            transition: all 0.2s ease;
+            color: var(--charcoal);
         }
-        .name-input:focus { border-color: var(--primary); outline: none; }
+        .name-input:focus { 
+            border-color: var(--terracotta); 
+            outline: none; 
+            box-shadow: 0 0 0 3px rgba(200, 109, 81, 0.1);
+        }
 
         .counter {
-            background: var(--primary);
-            color: white;
-            padding: 8px 20px;
+            background: var(--charcoal);
+            color: #FAF8F5;
+            padding: 7px 16px;
             border-radius: 20px;
-            font-size: 0.9rem;
-            font-weight: bold;
+            font-size: 0.75rem;
+            font-weight: 500;
             display: inline-block;
-            transition: background 0.3s;
+            transition: all 0.3s ease;
         }
-        .counter.complete { background: #27ae60; }
+        .counter.complete { 
+            background: var(--olive); 
+        }
 
         .container {
-            padding: 15px;
-            max-width: 600px;
+            padding: 20px 15px;
+            max-width: 500px;
             margin: 0 auto;
         }
 
         .card {
-            background: white;
-            border-radius: 15px;
+            background: var(--card-bg);
+            border-radius: 8px;
+            border: 1px solid var(--border);
             overflow: hidden;
             margin-bottom: 30px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            box-shadow: 0 4px 15px rgba(42, 40, 38, 0.03);
         }
 
         .card img {
             width: 100%;
             height: auto;
             display: block;
+            background: #F2EDE6;
         }
 
         .image-header {
-            padding: 10px 15px;
-            font-weight: bold;
-            color: #777;
-            font-size: 0.85rem;
-            border-bottom: 1px solid #eee;
+            padding: 10px 16px;
+            font-family: 'Caveat', cursive;
+            font-size: 1.7rem;
+            line-height: 1;
+            color: var(--terracotta);
+            border-bottom: 1px solid var(--border);
+            background: #FCFAF7;
         }
 
-        /* Grille des boutons de vote */
         .controls {
-            padding: 15px 15px 5px 15px;
+            padding: 14px 14px 6px 14px;
             display: grid;
-            grid-template-columns: 1fr 1fr 1fr; /* 3 colonnes égales */
+            grid-template-columns: 1fr 1fr 1fr;
             gap: 8px;
         }
 
         button {
-            padding: 12px 2px;
-            border: 1px solid #eee;
+            padding: 12px 4px;
+            border: 1px solid var(--border);
             background: white;
-            border-radius: 8px;
-            font-size: 0.8rem;
-            font-weight: 600;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-family: inherit;
+            font-weight: 500;
             cursor: pointer;
-            transition: all 0.2s;
-            color: #555;
+            transition: all 0.2s ease;
+            color: var(--charcoal);
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            gap: 5px;
+            gap: 4px;
         }
 
-        /* Bouton commentaire (largeur totale) */
         .comment-toggle-btn {
-            width: calc(100% - 30px);
-            margin: 5px 15px 15px 15px;
-            background-color: #f8f9fa;
-            border: 1px dashed #ccc;
+            width: calc(100% - 28px);
+            margin: 6px 14px 14px 14px;
+            padding: 9px;
+            background-color: transparent;
+            border: 1px dashed var(--border);
+            font-size: 0.75rem;
+            color: var(--muted);
             flex-direction: row;
         }
 
-        /* États des boutons */
-        button.selected { border-color: transparent; color: white; transform: translateY(-2px); box-shadow: 0 3px 8px rgba(0,0,0,0.2); }
-
-        .btn-top4.selected { background-color: var(--gold); color: black; }
-        .btn-like.selected { background-color: #27ae60; }
-        .btn-dislike.selected { background-color: #c0392b; }
-        
-        /* Bouton commentaire actif */
-        .comment-toggle-btn.has-text { 
-            background-color: #e3f2fd; 
-            border-color: #3498db; 
-            color: #2980b9;
+        button.selected { 
+            border-color: transparent; 
+            color: white; 
+            transform: translateY(-1px); 
         }
 
-        /* Zone de texte */
+        .btn-top4.selected { background-color: var(--terracotta); color: white; }
+        .btn-like.selected { background-color: var(--olive); color: white; }
+        .btn-dislike.selected { background-color: #9E968F; color: white; }
+        
+        .comment-toggle-btn.has-text { 
+            background-color: rgba(200, 109, 81, 0.08); 
+            border-color: var(--terracotta); 
+            color: var(--terracotta);
+            font-weight: 600;
+        }
+
         .feedback-box {
             display: none;
-            padding: 0 15px 15px 15px;
+            padding: 0 14px 14px 14px;
         }
         
         .feedback-box textarea, .general-ideas textarea {
             width: 100%;
-            border: 1px solid #3498db;
-            border-radius: 8px;
+            border: 1px solid var(--border);
+            border-radius: 6px;
             padding: 12px;
             font-family: inherit;
-            font-size: 0.95rem;
+            font-size: 0.85rem;
+            color: var(--charcoal);
             box-sizing: border-box;
-            background: #fdfdfd;
-            min-height: 80px;
+            background: #FCFAF7;
+            min-height: 70px;
             resize: vertical;
+        }
+        .feedback-box textarea:focus, .general-ideas textarea:focus {
+            outline: none;
+            border-color: var(--terracotta);
         }
 
         .general-ideas {
             background: white;
-            border-radius: 12px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
             padding: 20px;
-            margin-top: 40px;
-            margin-bottom: 20px;
+            margin-top: 15px;
         }
-        .general-ideas h3 { margin-top: 0; color: var(--primary); }
+        .general-ideas h3 { 
+            margin: 0 0 6px 0; 
+            font-size: 1rem; 
+            font-weight: 600;
+            color: var(--charcoal); 
+        }
+        .general-ideas p {
+            font-size: 0.8rem;
+            color: var(--muted);
+            margin: 0 0 12px 0;
+        }
 
-        /* Footer fixe */
         .footer-bar {
             position: fixed;
             bottom: 0;
             left: 0;
             width: 100%;
-            background: white;
-            padding: 15px;
-            box-shadow: 0 -4px 15px rgba(0,0,0,0.1);
+            background: rgba(250, 248, 245, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            padding: 16px 20px;
+            border-top: 1px solid var(--border);
             text-align: center;
             display: none;
             z-index: 200;
         }
 
         .submit-btn {
-            background: var(--primary);
+            background: var(--terracotta);
             color: white;
             border: none;
             padding: 15px 30px;
-            border-radius: 30px;
-            font-size: 1.1rem;
-            font-weight: bold;
-            width: 90%;
-            max-width: 400px;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            width: 100%;
+            max-width: 380px;
+            margin: 0 auto;
             flex-direction: row;
         }
     </style>
@@ -202,13 +256,14 @@
 <body>
 
     <header>
-        <h1>Sondage Design Éventails</h1>
+        <div class="logo-container">
+            <img src="images/SS27/Logo-veluume_ornage.png" alt="Veluume" class="brand-logo">
+        </div>
+        <p class="intro-text">Donne-nous ton avis direct : choisis tes 4 favoris (Top 4).</p>
         
-        <p class="intro-text">Voici 17 propositions. Je veux ton avis sincère. Choisis tes 4 préférés (bouton "Top 4").</p>
-        
-        <div style="max-width: 600px; margin: 0 auto;">
-            <input type="text" id="userName" class="name-input" placeholder="Ton Prénom (Obligatoire)" required>
-            <div class="counter" id="counter">Top 4 sélectionnés : 0 / 4</div>
+        <div style="max-width: 380px; margin: 0 auto;">
+            <input type="text" id="userName" class="name-input" placeholder="Ton prénom (obligatoire)" required>
+            <div class="counter" id="counter">Top 4 choisis : 0 / 4</div>
         </div>
     </header>
 
@@ -216,27 +271,25 @@
         
         <input type="hidden" name="Prenom_Utilisateur" id="hiddenName">
         
-        <div class="container" id="gallery">
-            </div>
+        <div class="container" id="gallery"></div>
 
         <div class="container">
             <div class="general-ideas">
-                <h3>💡 Idée d'éventails</h3>
-                <p>As-tu d'autres idées de motifs, de formes ou de couleurs pour une future collection ?</p>
-                <textarea name="Idée_Generale" placeholder="Ex: J'aimerais voir des motifs floraux..."></textarea>
+                <h3>Une autre idée en tête ?</h3>
+                <p>Motifs, couleurs ou matières que tu aimerais voir arriver :</p>
+                <textarea name="Idée_Generale" placeholder="Ex. : Des motifs rayés, des tons plus beiges..."></textarea>
             </div>
         </div>
 
         <input type="hidden" name="Resultats_Complets" id="finalData">
 
         <div class="footer-bar" id="footerBar">
-            <button type="submit" class="submit-btn">Envoyer ma sélection</button>
+            <button type="submit" class="submit-btn">Envoyer mes votes</button>
         </div>
     </form>
 
     <script>
-        // --- MODIFICATION ICI : 17 IMAGES ---
-        const totalImages = 17;
+        const totalImages = 16;
         const maxSelection = 4;
         
         const gallery = document.getElementById('gallery');
@@ -249,45 +302,45 @@
 
         let userVotes = {};
 
-        // Génération de la galerie
         for (let i = 1; i <= totalImages; i++) {
             userVotes[i] = "Neutre";
+
+            const imagePath = `images/SS27/img${i}.jpg`;
 
             const card = document.createElement('div');
             card.className = 'card';
             card.innerHTML = `
-                <div class="image-header">Modèle #${i}</div>
-                <img src="images/img${i}.png" alt="Eventail ${i}" loading="lazy">
+                <div class="image-header">Éventail n°${i}</div>
+                <img src="${imagePath}" alt="Éventail ${i}" loading="lazy">
                 
                 <div class="controls" id="ctrl-${i}">
                     <button type="button" class="btn-top4" onclick="setVote(${i}, 'Top 4', this)">
-                        <span>🏆</span> Top 4
+                        <span>✦</span> Top 4
                     </button>
                     <button type="button" class="btn-like" onclick="setVote(${i}, 'J\\'aime', this)">
                         <span>👍</span> J'aime
                     </button>
                     <button type="button" class="btn-dislike" onclick="setVote(${i}, 'Bof', this)">
-                        <span>👎</span> Bof
+                        <span>—</span> Moins fan
                     </button>
                 </div>
 
                 <button type="button" class="comment-toggle-btn" id="btn-com-${i}" onclick="toggleComment(${i})">
-                    ✏️ Proposer un changement / Commentaire
+                    Un détail à modifier ?
                 </button>
 
                 <div class="feedback-box" id="feedback-box-${i}">
-                    <textarea id="text-${i}" oninput="checkCommentInput(${i})" placeholder="Que faudrait-il changer ? (Couleur, motif...)"></textarea>
+                    <textarea id="text-${i}" oninput="checkCommentInput(${i})" placeholder="Changer les couleurs, le motif..."></textarea>
                 </div>
             `;
             gallery.appendChild(card);
         }
 
-        // Gestion du vote
         function setVote(id, type, btnElement) {
             const currentTop4 = countTop4();
 
             if (type === 'Top 4' && currentTop4 >= maxSelection && userVotes[id] !== 'Top 4') {
-                alert("Tu as déjà tes 4 favoris ! Décoche-en un autre pour sélectionner celui-ci.");
+                alert("Tu as déjà sélectionné 4 favoris ! Décoche-en un pour changer.");
                 return;
             }
 
@@ -306,7 +359,9 @@
             const box = document.getElementById(`feedback-box-${id}`);
             const isHidden = window.getComputedStyle(box).display === 'none';
             box.style.display = isHidden ? 'block' : 'none';
-            if (isHidden) document.getElementById(`text-${id}`).focus();
+            if (isHidden) {
+                document.getElementById(`text-${id}`).focus();
+            }
         }
 
         function checkCommentInput(id) {
@@ -315,10 +370,10 @@
             
             if (text.length > 0) {
                 btn.classList.add('has-text');
-                btn.innerText = "✏️ Commentaire ajouté";
+                btn.innerText = "✓ Remarque ajoutée";
             } else {
                 btn.classList.remove('has-text');
-                btn.innerText = "✏️ Proposer un changement / Commentaire";
+                btn.innerText = "Un détail à modifier ?";
             }
         }
 
@@ -338,7 +393,7 @@
 
         function updateUI() {
             const count = countTop4();
-            counterDisplay.innerText = `Top 4 sélectionnés : ${count} / ${maxSelection}`;
+            counterDisplay.innerText = `Top 4 choisis : ${count} / ${maxSelection}`;
             
             if (count === maxSelection) {
                 counterDisplay.classList.add('complete');
@@ -353,14 +408,14 @@
             if (nameInput.value.trim() === "") {
                 e.preventDefault();
                 alert("Merci d'indiquer ton prénom tout en haut !");
-                window.scrollTo(0, 0);
+                window.scrollTo({ top: 0, behavior: 'smooth' });
                 nameInput.focus();
                 return;
             }
 
             if (countTop4() !== maxSelection) {
                 e.preventDefault();
-                alert("Il faut sélectionner exactement 4 éventails en 'Top 4'.");
+                alert("Sélectionne exactement 4 favoris en 'Top 4'.");
                 return;
             }
 
@@ -376,7 +431,7 @@
                     if (comment !== "") {
                         entry += ` | NOTE: ${comment}`;
                     }
-                    finalResult[`Modèle ${i}`] = entry;
+                    finalResult[`Éventail ${i}`] = entry;
                 }
             }
             
