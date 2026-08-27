@@ -187,6 +187,22 @@
             color: var(--orange-veluume);
             border-bottom: 1px solid var(--border);
             background: #FCFAF7;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .edition-badge {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            background-color: rgba(232, 77, 23, 0.1);
+            color: var(--orange-veluume);
+            border: 1px solid rgba(232, 77, 23, 0.25);
+            padding: 4px 10px;
+            border-radius: 12px;
         }
 
         .carousel-track {
@@ -297,7 +313,6 @@
             transform: translateY(-1px); 
         }
 
-        /* Bouton Étoile Top 4 en Jaune */
         .btn-top4 span { font-size: 0.95rem; color: #BBB; }
         .btn-top4.selected { 
             background-color: var(--gold-star); 
@@ -443,14 +458,15 @@
         const maxSelection = 4;
         let participantName = "";
         
+        // Configuration détaillée des 20 modèles
         const itemsConfig = [
             { id: 1,  type: 'single', images: ['images/SS27/img1.jpg'] },
             { id: 2,  type: 'single', images: ['images/SS27/img2.jpg'] },
             { id: 3,  type: 'single', images: ['images/SS27/img3.jpg'] },
             { id: 4,  type: 'single', images: ['images/SS27/img4.jpg'] },
             { id: 5,  type: 'single', images: ['images/SS27/img5.jpg'] },
-            { id: 6,  type: 'single', images: ['images/SS27/img6.jpg'] },
-            { id: 7,  type: 'single', images: ['images/SS27/img7.jpg'] },
+            { id: 6,  type: 'single', images: ['images/SS27/img6.jpg'], badge: 'Édition Corse' },
+            { id: 7,  type: 'single', images: ['images/SS27/img7.jpg'], badge: 'Édition Corse' },
             { id: 8,  type: 'single', images: ['images/SS27/img8.png'] }, 
             { id: 9,  type: 'multi',  images: ['images/SS27/img17.jpg', 'images/SS27/img21.jpg'] },
             { id: 10, type: 'single', images: ['images/SS27/img10.jpg'] },
@@ -461,7 +477,9 @@
             { id: 15, type: 'single', images: ['images/SS27/img15.jpg'] },
             { id: 16, type: 'single', images: ['images/SS27/img16.jpg'] },
             { id: 17, type: 'single', images: ['images/SS27/img20.jpg'] },
-            { id: 18, type: 'single', images: ['images/SS27/img18.jpg'] }
+            { id: 18, type: 'single', images: ['images/SS27/img18.jpg'] },
+            { id: 19, type: 'single', images: ['images/SS27/img24.jpg'] }, // Ajout éventail 19
+            { id: 20, type: 'single', images: ['images/SS27/img25.jpg'] }  // Ajout éventail 20
         ];
 
         const gallery = document.getElementById('gallery');
@@ -523,8 +541,13 @@
                 `;
             }
 
+            const badgeHtml = item.badge ? `<span class="edition-badge">${item.badge}</span>` : '';
+
             card.innerHTML = `
-                <div class="image-header">Éventail n°${item.id}</div>
+                <div class="image-header">
+                    <span>Éventail n°${item.id}</span>
+                    ${badgeHtml}
+                </div>
                 ${imageHtml}
                 
                 <div class="controls" id="ctrl-${item.id}">
