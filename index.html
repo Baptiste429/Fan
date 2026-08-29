@@ -97,6 +97,621 @@
             background: var(--orange-dark);
         }
 
+        .name-input {
+            width: 100%;
+            padding: 14px 16px;
+            font-size: 0.95rem;
+            font-family: inherit;
+            border: 1px solid var(--border);
+            background: white;
+            border-radius: 6px;
+            margin-bottom: 16px;
+            text-align: center;
+            transition: all 0.2s ease;
+            color: var(--charcoal);
+        }
+        .name-input:focus { 
+            border-color: var(--orange-veluume); 
+            outline: none; 
+            box-shadow: 0 0 0 3px rgba(232, 77, 23, 0.12);
+        }
+
+        /* --- HEADER & ÉTOILES --- */
+        header {
+            background: rgba(250, 248, 245, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            padding: 20px 20px 16px 20px;
+            text-align: center;
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .brand-logo {
+            max-height: 36px;
+            width: auto;
+            display: inline-block;
+            margin-bottom: 8px;
+        }
+
+        .intro-text { 
+            font-size: 0.88rem; 
+            color: var(--muted); 
+            line-height: 1.4; 
+            max-width: 440px;
+            margin: 0 auto 12px auto;
+        }
+
+        .stars-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.6rem;
+            line-height: 1;
+        }
+
+        .star {
+            color: #DDD6CE;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .star.filled {
+            color: var(--gold-star);
+            transform: scale(1.15);
+        }
+
+        .container {
+            padding: 20px 15px;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        /* --- CARTE & CARROUSEL TACTILE --- */
+        .card {
+            background: var(--card-bg);
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            overflow: hidden;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(42, 40, 38, 0.03);
+            position: relative;
+        }
+
+        .image-header {
+            padding: 10px 16px;
+            font-family: 'Caveat', cursive;
+            font-size: 1.7rem;
+            line-height: 1;
+            color: var(--orange-veluume);
+            border-bottom: 1px solid var(--border);
+            background: #FCFAF7;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .edition-badge {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            background-color: rgba(232, 77, 23, 0.1);
+            color: var(--orange-veluume);
+            border: 1px solid rgba(232, 77, 23, 0.25);
+            padding: 4px 10px;
+            border-radius: 12px;
+        }
+
+        .carousel-track {
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            width: 100%;
+            background: #F2EDE6;
+        }
+        .carousel-track::-webkit-scrollbar {
+            display: none;
+        }
+
+        .carousel-slide {
+            flex: 0 0 100%;
+            width: 100%;
+            scroll-snap-align: start;
+        }
+
+        .carousel-slide img, .card img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .image-wrapper {
+            position: relative;
+            width: 100%;
+        }
+
+        .slider-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.85);
+            color: var(--charcoal);
+            border: 1px solid var(--border);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            cursor: pointer;
+            z-index: 10;
+            padding: 0;
+            transition: background 0.2s;
+        }
+        .slider-btn.prev { left: 8px; }
+        .slider-btn.next { right: 8px; }
+
+        .slider-indicator {
+            position: absolute;
+            bottom: 10px;
+            right: 12px;
+            background: rgba(42, 40, 38, 0.65);
+            color: white;
+            font-size: 0.65rem;
+            padding: 3px 8px;
+            border-radius: 12px;
+            letter-spacing: 0.05em;
+            pointer-events: none;
+        }
+
+        /* --- CONTRÔLES --- */
+        .controls {
+            padding: 14px 14px 6px 14px;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 8px;
+        }
+
+        button {
+            padding: 12px 4px;
+            border: 1px solid var(--border);
+            background: white;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-family: inherit;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            color: var(--charcoal);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+        }
+
+        .comment-toggle-btn {
+            width: calc(100% - 28px);
+            margin: 6px 14px 14px 14px;
+            padding: 9px;
+            background-color: transparent;
+            border: 1px dashed var(--border);
+            font-size: 0.75rem;
+            color: var(--muted);
+            flex-direction: row;
+        }
+
+        button.selected { 
+            border-color: transparent; 
+            color: white; 
+            transform: translateY(-1px); 
+        }
+
+        .btn-top4 span { font-size: 0.95rem; color: #BBB; }
+        .btn-top4.selected { 
+            background-color: var(--gold-star); 
+            color: #2A2826; 
+            font-weight: 600;
+        }
+        .btn-top4.selected span { color: #2A2826; }
+
+        .btn-like.selected { background-color: var(--olive); color: white; }
+        .btn-dislike.selected { background-color: #9E968F; color: white; }
+        
+        .comment-toggle-btn.has-text { 
+            background-color: rgba(232, 77, 23, 0.08); 
+            border-color: var(--orange-veluume); 
+            color: var(--orange-veluume);
+            font-weight: 600;
+        }
+
+        .feedback-box {
+            display: none;
+            padding: 0 14px 14px 14px;
+        }
+        
+        .feedback-box textarea, .general-ideas textarea {
+            width: 100%;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 12px;
+            font-family: inherit;
+            font-size: 0.85rem;
+            color: var(--charcoal);
+            box-sizing: border-box;
+            background: #FCFAF7;
+            min-height: 70px;
+            resize: vertical;
+        }
+        .feedback-box textarea:focus, .general-ideas textarea:focus {
+            outline: none;
+            border-color: var(--orange-veluume);
+        }
+
+        .general-ideas {
+            background: white;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            padding: 20px;
+            margin-top: 15px;
+        }
+        .general-ideas h3 { 
+            margin: 0 0 6px 0; 
+            font-size: 1rem; 
+            font-weight: 600;
+            color: var(--charcoal); 
+        }
+        .general-ideas p {
+            font-size: 0.8rem;
+            color: var(--muted);
+            margin: 0 0 12px 0;
+        }
+
+        .footer-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(250, 248, 245, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            padding: 16px 20px;
+            border-top: 1px solid var(--border);
+            text-align: center;
+            display: none;
+            z-index: 200;
+        }
+
+        .submit-btn {
+            background: var(--orange-veluume);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            width: 100%;
+            max-width: 380px;
+            margin: 0 auto;
+            flex-direction: row;
+        }
+        .submit-btn:hover {
+            background: var(--orange-dark);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ÉCRAN D'ACCUEIL BLOQUANT -->
+    <div id="welcomeOverlay">
+        <div class="welcome-card">
+            <img src="images/SS27/Logo-veluume_ornage.png" alt="Veluume" class="welcome-logo">
+            <div class="welcome-title">Bienvenue !</div>
+            <p class="welcome-text">Donne ton avis et clique sur l'étoile pour faire ton Top 4.</p>
+            <input type="text" id="initialName" class="name-input" placeholder="Ton prénom" autofocus>
+            <button type="button" class="start-btn" id="startBtn">Découvrir les modèles</button>
+        </div>
+    </div>
+
+    <header>
+        <div>
+            <img src="images/SS27/Logo-veluume_ornage.png" alt="Veluume" class="brand-logo">
+        </div>
+        <p class="intro-text">Donne-nous ton avis direct : choisis tes 4 favoris (Top 4).</p>
+        
+        <div class="stars-container" id="starsDisplay">
+            <span class="star" id="star-1">★</span>
+            <span class="star" id="star-2">★</span>
+            <span class="star" id="star-3">★</span>
+            <span class="star" id="star-4">★</span>
+        </div>
+    </header>
+
+    <form id="mainForm" action="https://formspree.io/f/mbddpagp" method="POST">
+        
+        <input type="hidden" name="Prenom_Utilisateur" id="hiddenName">
+        
+        <div class="container" id="gallery"></div>
+
+        <div class="container">
+            <div class="general-ideas">
+                <h3>Une autre idée en tête ?</h3>
+                <p>Motifs, couleurs ou matières que tu aimerais voir arriver :</p>
+                <textarea name="Idée_Generale" placeholder="Ex. : Des motifs rayés, des tons plus beiges..."></textarea>
+            </div>
+        </div>
+
+        <input type="hidden" name="Resultats_Complets" id="finalData">
+
+        <div class="footer-bar" id="footerBar">
+            <button type="submit" class="submit-btn">Envoyer mes votes</button>
+        </div>
+    </form>
+
+    <script>
+        const maxSelection = 4;
+        
+        // Configuration détaillée des 22 modèles
+        const itemsConfig = [
+            { id: 1,  type: 'single', images: ['images/SS27/img1.jpg'] },
+            { id: 2,  type: 'single', images: ['images/SS27/img2.jpg'] },
+            { id: 3,  type: 'single', images: ['images/SS27/img3.jpg'] },
+            { id: 4,  type: 'single', images: ['images/SS27/img4.jpg'] },
+            { id: 5,  type: 'single', images: ['images/SS27/img5.jpg'] },
+            { id: 6,  type: 'single', images: ['images/SS27/img6.jpg'], badge: 'Édition Corse' },
+            { id: 7,  type: 'single', images: ['images/SS27/img7.jpg'], badge: 'Édition Corse' },
+            { id: 8,  type: 'single', images: ['images/SS27/img8.png'] }, 
+            { id: 9,  type: 'multi',  images: ['images/SS27/img17.jpg', 'images/SS27/img21.jpg'] },
+            { id: 10, type: 'single', images: ['images/SS27/img10.jpg'] },
+            { id: 11, type: 'single', images: ['images/SS27/img11.jpg'] },
+            { id: 12, type: 'single', images: ['images/SS27/img12.jpg'] },
+            { id: 13, type: 'multi',  images: ['images/SS27/img13.jpg', 'images/SS27/img22.jpg', 'images/SS27/img19.jpg'] },
+            { id: 14, type: 'single', images: ['images/SS27/img14.jpg'] },
+            { id: 15, type: 'single', images: ['images/SS27/img15.jpg'] },
+            { id: 16, type: 'single', images: ['images/SS27/img16.jpg'] },
+            { id: 17, type: 'single', images: ['images/SS27/img20.jpg'] },
+            { id: 18, type: 'single', images: ['images/SS27/img18.jpg'] },
+            { id: 19, type: 'single', images: ['images/SS27/img24.jpg'] },
+            { id: 20, type: 'single', images: ['images/SS27/img25.jpg'] },
+            { id: 21, type: 'single', images: ['images/SS27/img26.jpg'], badge: 'Édition Corse' },
+            { id: 22, type: 'single', images: ['images/SS27/img27.jpg'], badge: 'Édition Corse' }
+        ];
+
+        const gallery = document.getElementById('gallery');
+        const footerBar = document.getElementById('footerBar');
+        const finalDataInput = document.getElementById('finalData');
+        const mainForm = document.getElementById('mainForm');
+        const hiddenNameInput = document.getElementById('hiddenName');
+        const initialNameInput = document.getElementById('initialName');
+        const startBtn = document.getElementById('startBtn');
+        const welcomeOverlay = document.getElementById('welcomeOverlay');
+
+        let userVotes = {};
+
+        // Validation immédiate du prénom
+        function confirmNameAndStart() {
+            const enteredName = initialNameInput.value.trim();
+            if (!enteredName) {
+                alert("Merci d'indiquer ton prénom pour commencer !");
+                initialNameInput.focus();
+                return;
+            }
+            hiddenNameInput.value = enteredName;
+            welcomeOverlay.style.display = 'none';
+            window.scrollTo({ top: 0, behavior: 'instant' });
+        }
+
+        startBtn.addEventListener('click', confirmNameAndStart);
+
+        initialNameInput.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                confirmNameAndStart();
+            }
+        });
+
+        // Génération de la galerie
+        itemsConfig.forEach(item => {
+            userVotes[item.id] = "Neutre";
+
+            const card = document.createElement('div');
+            card.className = 'card';
+
+            let imageHtml = '';
+            if (item.type === 'multi') {
+                const slidesHtml = item.images.map(src => `
+                    <div class="carousel-slide">
+                        <img src="${src}" alt="Éventail ${item.id}" loading="lazy">
+                    </div>
+                `).join('');
+
+                imageHtml = `
+                    <div class="image-wrapper">
+                        <button type="button" class="slider-btn prev" onclick="scrollCarousel(${item.id}, -1)">‹</button>
+                        <div class="carousel-track" id="track-${item.id}" onscroll="updateSlideIndicator(${item.id})">
+                            ${slidesHtml}
+                        </div>
+                        <button type="button" class="slider-btn next" onclick="scrollCarousel(${item.id}, 1)">›</button>
+                        <div class="slider-indicator" id="indicator-${item.id}">1 / ${item.images.length}</div>
+                    </div>
+                `;
+            } else {
+                imageHtml = `
+                    <div class="image-wrapper">
+                        <img src="${item.images[0]}" alt="Éventail ${item.id}" loading="lazy">
+                    </div>
+                `;
+            }
+
+            const badgeHtml = item.badge ? `<span class="edition-badge">${item.badge}</span>` : '';
+
+            card.innerHTML = `
+                <div class="image-header">
+                    <span>Éventail n°${item.id}</span>
+                    ${badgeHtml}
+                </div>
+                ${imageHtml}
+                
+                <div class="controls" id="ctrl-${item.id}">
+                    <button type="button" class="btn-top4" onclick="setVote(${item.id}, 'Top 4', this)">
+                        <span>★</span> Top 4
+                    </button>
+                    <button type="button" class="btn-like" onclick="setVote(${item.id}, 'J\\'aime', this)">
+                        <span>👍</span> J'aime
+                    </button>
+                    <button type="button" class="btn-dislike" onclick="setVote(${item.id}, 'Bof', this)">
+                        <span>—</span> Moins fan
+                    </button>
+                </div>
+
+                <button type="button" class="comment-toggle-btn" id="btn-com-${item.id}" onclick="toggleComment(${item.id})">
+                    Un détail à modifier ?
+                </button>
+
+                <div class="feedback-box" id="feedback-box-${item.id}">
+                    <textarea id="text-${item.id}" oninput="checkCommentInput(${item.id})" placeholder="Changer les couleurs, le motif..."></textarea>
+                </div>
+            `;
+            gallery.appendChild(card);
+        });
+
+        function scrollCarousel(id, direction) {
+            const track = document.getElementById(`track-${id}`);
+            const width = track.offsetWidth;
+            track.scrollBy({ left: direction * width, behavior: 'smooth' });
+        }
+
+        function updateSlideIndicator(id) {
+            const track = document.getElementById(`track-${id}`);
+            const config = itemsConfig.find(item => item.id === id);
+            const index = Math.round(track.scrollLeft / track.offsetWidth) + 1;
+            document.getElementById(`indicator-${id}`).innerText = `${Math.min(index, config.images.length)} / ${config.images.length}`;
+        }
+
+        function setVote(id, type, btnElement) {
+            const currentTop4 = countTop4();
+
+            if (type === 'Top 4' && currentTop4 >= maxSelection && userVotes[id] !== 'Top 4') {
+                alert("Tu as déjà sélectionné 4 favoris ! Décoche-en un pour changer.");
+                return;
+            }
+
+            if (userVotes[id] === type) {
+                userVotes[id] = "Neutre";
+                resetButtons(id);
+            } else {
+                userVotes[id] = type;
+                highlightButton(id, btnElement);
+            }
+
+            updateUI();
+        }
+
+        function toggleComment(id) {
+            const box = document.getElementById(`feedback-box-${id}`);
+            const isHidden = window.getComputedStyle(box).display === 'none';
+            box.style.display = isHidden ? 'block' : 'none';
+            if (isHidden) document.getElementById(`text-${id}`).focus();
+        }
+
+        function checkCommentInput(id) {
+            const text = document.getElementById(`text-${id}`).value.trim();
+            const btn = document.getElementById(`btn-com-${id}`);
+            
+            if (text.length > 0) {
+                btn.classList.add('has-text');
+                btn.innerText = "✓ Remarque ajoutée";
+            } else {
+                btn.classList.remove('has-text');
+                btn.innerText = "Un détail à modifier ?";
+            }
+        }
+
+        function resetButtons(id) {
+            const buttons = document.querySelectorAll(`#ctrl-${id} button`);
+            buttons.forEach(b => b.classList.remove('selected'));
+        }
+
+        function highlightButton(id, activeBtn) {
+            resetButtons(id);
+            activeBtn.classList.add('selected');
+        }
+
+        function countTop4() {
+            return Object.values(userVotes).filter(v => v === 'Top 4').length;
+        }
+
+        function updateUI() {
+            const count = countTop4();
+            
+            for (let i = 1; i <= maxSelection; i++) {
+                const star = document.getElementById(`star-${i}`);
+                if (i <= count) {
+                    star.classList.add('filled');
+                } else {
+                    star.classList.remove('filled');
+                }
+            }
+            
+            footerBar.style.display = (count === maxSelection) ? 'block' : 'none';
+        }
+
+        mainForm.onsubmit = function(e) {
+            if (!hiddenNameInput.value.trim()) {
+                e.preventDefault();
+                alert("Merci d'indiquer ton prénom.");
+                welcomeOverlay.style.display = 'flex';
+                initialNameInput.focus();
+                return;
+            }
+
+            if (countTop4() !== maxSelection) {
+                e.preventDefault();
+                alert("Sélectionne exactement 4 favoris en 'Top 4'.");
+                return;
+            }
+
+            let finalResult = {};
+
+            itemsConfig.forEach(item => {
+                let vote = userVotes[item.id];
+                let comment = document.getElementById(`text-${item.id}`).value.trim();
+                
+                if (vote !== "Neutre" || comment !== "") {
+                    let entry = vote;
+                    if (comment !== "") entry += ` | NOTE: ${comment}`;
+                    finalResult[`Éventail ${item.id}`] = entry;
+                }
+            });
+            
+            finalDataInput.value = JSON.stringify(finalResult, null, 2);
+        };
+    </script>
+</body>
+</html>        }
+
+        .start-btn {
+            background: var(--orange-veluume);
+            color: white;
+            border: none;
+            padding: 14px 24px;
+            border-radius: 6px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            width: 100%;
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+        .start-btn:hover {
+            background: var(--orange-dark);
+        }
+
         /* --- HEADER & ÉTOILES --- */
         header {
             background: rgba(250, 248, 245, 0.95);
